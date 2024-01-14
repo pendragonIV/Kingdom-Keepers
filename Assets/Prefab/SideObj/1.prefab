@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1305789199541179862}
   - component: {fileID: 799406441048253231}
   m_Layer: 3
-  m_Name: MathObject
+  m_Name: 1
   m_TagString: MathObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockType: 0
   operatorType: 0
-  numberValue: 2
+  numberValue: 1
+  _isMoveable: 1
 --- !u!210 &799406441048253231
 SortingGroup:
   m_ObjectHideFlags: 0

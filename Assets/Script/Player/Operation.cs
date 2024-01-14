@@ -33,6 +33,10 @@ public class Operation : MonoBehaviour
 
     private void Start()
     {
+        if (!_isMoveable)
+        {
+            GetComponent<SpriteRenderer>().color = Color.gray;
+        }
         TMP_Text text = this.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
 
         if (blockType == BlockType.Number)

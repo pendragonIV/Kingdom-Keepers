@@ -13,43 +13,39 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   levels:
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 7597031099348640713, guid: af5e8b94d4317af448007a9336f3299c, type: 3}
+    timeLimit: 30
     isCompleted: 0
     isPlayable: 1
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 3462203524154055029, guid: 94caa38e55069f84fbb0dfe1a570779e, type: 3}
+    timeLimit: 30
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 9196543427927898532, guid: 9d3d3ece03a3f2846a77ea020962359c, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 7611910657262752444, guid: 94ebbe2d721c6af47867674bb50a4134, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 5959960967958264260, guid: bc07fc5608e7f154682169fb6004349f, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 6890935424888486797, guid: 960f791cea2a6604b80e2fa6cd0222bc, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 5984439940655272002, guid: e17522252e321d54da7698c44cff27b8, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 7787181248239064006, guid: 7656851819a61854089f6a3c0556517c, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
-    isCompleted: 0
-    isPlayable: 0
-  - map: {fileID: 0}
-    timeLimit: 0
+  - map: {fileID: 263662446993074316, guid: f5664f931ef1bdc49b4055b1d734fcf9, type: 3}
+    timeLimit: 90
     isCompleted: 0
     isPlayable: 0

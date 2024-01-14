@@ -14,6 +14,7 @@ public class LevelHolder : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private CanvasGroup holderCG;
 
+
     private void Start()
     {
         levelIndexText.text = (int.Parse(this.gameObject.name) + 1).ToString();

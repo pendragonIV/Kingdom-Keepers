@@ -34,6 +34,10 @@ public class Calculator : MonoBehaviour
     [SerializeField]
     private List<GameObject> horizontalNumber = new List<GameObject>();
 
+    [SerializeField]
+    private Transform equalContainer;
+    private List<bool> isWin = new List<bool>();
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -43,6 +47,29 @@ public class Calculator : MonoBehaviour
         else
         {
             instance = this;
+        }
+    }
+
+    public void CheckWin()
+    {
+        isWin.Clear();
+        for(int i = 0; i < equalContainer.childCount; i++)
+        {
+            GetNearbyNumbers(equalContainer.GetChild(i).gameObject, GridCellManager.instance.GetObjCell(equalContainer.GetChild(i).position));
+        }
+        bool isWinGame = false;
+        Debug.Log(isWin.Count);
+        foreach(bool win in isWin)
+        {
+            isWinGame = win;
+            if (!win)
+            {
+                break;
+            }
+        }
+        if (isWinGame)
+        {
+            GameManager.instance.PlayerWinThisLevel();
         }
     }
 
@@ -137,7 +164,7 @@ public class Calculator : MonoBehaviour
                     number += horizontalNumber[i].GetComponent<Operation>().GetNumberValue().ToString();
                 }
             }
-            Calculate(number);
+            isWin.Add(Calculate(number));
         }
         else if (verticalNumber.Count > 1)
         {
@@ -154,7 +181,11 @@ public class Calculator : MonoBehaviour
                     number += verticalNumber[i].GetComponent<Operation>().GetNumberValue().ToString();
                 }
             }
-            Calculate(number);
+            isWin.Add(Calculate(number));
+        }
+        else
+        {
+            isWin.Add(false);
         }
     }
 
@@ -183,8 +214,9 @@ public class Calculator : MonoBehaviour
         return "";
     }
 
-    private void Calculate(string numberString)
+    private bool Calculate(string numberString)
     {
+        Debug.Log(numberString);
         string[] numbers = numberString.Split('+', '-', '*', '/', '=');
 
         int start = 1;
@@ -195,7 +227,7 @@ public class Calculator : MonoBehaviour
         {
             if(numbers.Length == 2)
             {
-                return;
+                return false;
             }
             string temp = numberString[0] + numbers[1];
             result = int.Parse(temp);
@@ -205,7 +237,7 @@ public class Calculator : MonoBehaviour
         {
             if(numbers.Length == 1)
             {
-                return;
+                return false;
             }
             result = int.Parse(numbers[0]);
         }
@@ -216,28 +248,16 @@ public class Calculator : MonoBehaviour
         {
             if (numberString[i] == '+')
             {
-                if (numbers[index] == "")
-                {
-                    return;
-                }
                 result += int.Parse(numbers[index]);
                 index++;
             }
             else if (numberString[i] == '-')
             {
-                if (numbers[index] == "")
-                {
-                    return;
-                }
                 result -= int.Parse(numbers[index]);
                 index++;
             }
             else if (numberString[i] == '*')
             {
-                if (numbers[index] == "")
-                {
-                    return;
-                }
                 result *= int.Parse(numbers[index]);
                 index++;
             }
@@ -246,11 +266,6 @@ public class Calculator : MonoBehaviour
                 if (int.Parse(numbers[index]) == 0)
                 {
                     Debug.Log("Divide by zero");
-                    return;
-                }
-                if (numbers[index] == "")
-                {
-                    return;
                 }
                 result /= int.Parse(numbers[index]);
                 index++;
@@ -258,7 +273,13 @@ public class Calculator : MonoBehaviour
             else if (numberString[i] == '=')
             {
                 resultList.Add(result);
+                result = 0;
+                if (index >= numbers.Length)
+                {
+                    break;
+                }
                 result = int.Parse(numbers[index]);
+                Debug.Log("result: " + result);
                 index++;
             }
         }
@@ -270,6 +291,10 @@ public class Calculator : MonoBehaviour
 
         bool isEqual = true;
         int startResult = resultList[0];
+        if(resultList.Count == 1)
+        {
+            return false;
+        }
 
         for(int i = 0; i < resultList.Count; i++)
         {
@@ -282,13 +307,9 @@ public class Calculator : MonoBehaviour
 
         if (isEqual)
         {
-            Debug.Log("Yeeeeee");
-        }else
-        {
-            Debug.Log("Noooooo");
+            return true;
         }
-        //GameManager.instance.ChangeResult(result);
-        //GameManager.instance.CheckResult(result);
+        return false;
     }
 
     #region Get

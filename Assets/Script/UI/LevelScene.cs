@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class LevelScene : MonoBehaviour
@@ -11,6 +12,9 @@ public class LevelScene : MonoBehaviour
     private Transform levelsContainer;
 
     public Transform sceneTransition;
+
+    [SerializeField]
+    private GameObject hoderCMS;
 
     private void Awake()
     {
@@ -54,7 +58,20 @@ public class LevelScene : MonoBehaviour
             holderContainer.GetComponent<CanvasGroup>().DOFade(1, .5f).SetDelay(i * DELAY_TIME);
             holderContainer.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetEase(Ease.InSine).SetDelay(i * DELAY_TIME);
         }
+        StartCoroutine(AddCMS(LevelManager.instance.levelData.GetLevels().Count * DELAY_TIME));
     }
-
+    private IEnumerator AddCMS(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        GameObject CMS = Instantiate(hoderCMS, levelsContainer);
+        CMS.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, -285 - 60f);
+        CMS.GetComponent<CanvasGroup>().alpha = 0;
+        CMS.GetComponent<CanvasGroup>().DOFade(1, .5f);
+        CMS.GetComponent<RectTransform>().DOAnchorPosY(-285, 0.5f).SetEase(Ease.InSine);
+    }
+    private void OnApplicationQuit()
+    {
+        DOTween.KillAll();
+    }
 
 }

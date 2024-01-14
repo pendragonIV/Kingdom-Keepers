@@ -37,12 +37,19 @@ public class GridCellManager : MonoBehaviour
 
     public void SetPlacedCell(Vector3Int placedCell, GameObject obj)
     {
+        if (this.placedCell.ContainsKey(placedCell))
+        {
+            this.placedCell.Remove(placedCell);
+        }
         this.placedCell.Add(placedCell, obj);
     }
 
     public void RemovePlacedCell(Vector3Int placedCell)
     {
-        this.placedCell.Remove(placedCell);
+        if (this.placedCell.ContainsKey(placedCell))
+        {
+            this.placedCell.Remove(placedCell);
+        }
     }
 
     public GameObject GetPlacedObj(Vector3Int placedCell)

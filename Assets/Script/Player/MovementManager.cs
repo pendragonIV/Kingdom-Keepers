@@ -14,6 +14,18 @@ public class MovementManager : MonoBehaviour
         {
             hitObject = CastRay();
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (hitObject && hitObject.GetComponent<Operation>() != null)
+            {
+                if (!hitObject.GetComponent<Operation>().IsOperationMoveable())
+                {
+                    hitObject = null;
+                    axisMovementInput.SetDefaultMoveDirection();
+                    return;
+                }
+            }
+        }
         MoveOperation();    
     }
 
@@ -26,13 +38,10 @@ public class MovementManager : MonoBehaviour
             GridCellManager.instance.RemovePlacedCell(GridCellManager.instance.GetObjCell(hitObject.transform.position));
             hitObject.transform.DOMove(GridCellManager.instance.PositonToMove(cellToMove), 0.5f).OnComplete(() =>
             {
-                GridCellManager.instance.SetPlacedCell(cellToMove, hitObject);
-                if (GridCellManager.instance.IsCalculateArea(cellToMove))
-                {
-                    Calculator.instance.GetNearbyNumbers(hitObject, cellToMove);
-                }
-                hitObject = null;
+                Calculator.instance.CheckWin();
             });
+            GridCellManager.instance.SetPlacedCell(cellToMove, hitObject);
+            hitObject = null;
             axisMovementInput.SetDefaultMoveDirection();
         }
     }

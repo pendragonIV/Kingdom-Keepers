@@ -56,4 +56,8 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    private void OnApplicationQuit()
+    {
+        DOTween.KillAll();
+    }
 }
