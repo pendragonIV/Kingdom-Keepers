@@ -8,8 +8,13 @@ public class MovementManager : MonoBehaviour
     private GameObject hitObject;
     [SerializeField]
     private AxisMovementInput axisMovementInput;
+    private bool _isCanMove = true;
     private void Update()
     {
+        if (!_isCanMove)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             hitObject = CastRay();
@@ -34,14 +39,18 @@ public class MovementManager : MonoBehaviour
         Vector2 moveDir = axisMovementInput.GetOperationMoveDirection();
         if(hitObject != null && moveDir != Vector2.zero)
         {
+
+            _isCanMove = false;
             Vector3Int cellToMove = GetCellToMoveOperation(hitObject, moveDir);
             GridCellManager.instance.RemovePlacedCell(GridCellManager.instance.GetObjCell(hitObject.transform.position));
+            Animator am = hitObject.GetComponent<Animator>();
             hitObject.transform.DOMove(GridCellManager.instance.PositonToMove(cellToMove), 0.5f).OnComplete(() =>
             {
                 Calculator.instance.CheckWin();
+                _isCanMove = true;
             });
-            GridCellManager.instance.SetPlacedCell(cellToMove, hitObject);
             hitObject = null;
+            GridCellManager.instance.SetPlacedCell(cellToMove, hitObject);
             axisMovementInput.SetDefaultMoveDirection();
         }
     }
