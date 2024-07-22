@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementManager : MonoBehaviour
@@ -29,9 +27,9 @@ public class MovementManager : MonoBehaviour
                     axisMovementInput.SetDefaultMoveDirection();
                     return;
                 }
+                MoveOperation();
             }
-        }
-        MoveOperation();    
+        }  
     }
 
     private void MoveOperation()
@@ -44,14 +42,15 @@ public class MovementManager : MonoBehaviour
             Vector3Int cellToMove = GetCellToMoveOperation(hitObject, moveDir);
             GridCellManager.instance.RemovePlacedCell(GridCellManager.instance.GetObjCell(hitObject.transform.position));
             Animator am = hitObject.GetComponent<Animator>();
-            hitObject.transform.DOMove(GridCellManager.instance.PositonToMove(cellToMove), 0.5f).OnComplete(() =>
-            {
-                Calculator.instance.CheckWin();
-                _isCanMove = true;
-            });
-            hitObject = null;
+
             GridCellManager.instance.SetPlacedCell(cellToMove, hitObject);
             axisMovementInput.SetDefaultMoveDirection();
+            hitObject.transform.DOMove(GridCellManager.instance.PositonToMove(cellToMove), 0.5f).OnComplete(() =>
+            {
+                _isCanMove = true;
+                Calculator.instance.CheckWin();
+            });
+            hitObject = null;
         }
     }
 

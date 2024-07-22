@@ -58,7 +58,6 @@ public class Calculator : MonoBehaviour
             GetNearbyNumbers(equalContainer.GetChild(i).gameObject, GridCellManager.instance.GetObjCell(equalContainer.GetChild(i).position));
         }
         bool isWinGame = false;
-        Debug.Log(isWin.Count);
         foreach(bool win in isWin)
         {
             isWinGame = win;
@@ -103,10 +102,10 @@ public class Calculator : MonoBehaviour
             }
 
         }
-
         while (GridCellManager.instance.IsPlacedCell(nextLeft) && GridCellManager.instance.IsCalculateArea(nextLeft))
         {
             GameObject next = GridCellManager.instance.GetPlacedObj(nextLeft);
+            Debug.Log(next);
             if (next.CompareTag(OBJECT_TAG))
             {
                 horizontalNumber.Insert(0, next);
@@ -148,7 +147,6 @@ public class Calculator : MonoBehaviour
             }
 
         }
-
         if (horizontalNumber.Count > 1)
         {
             string number = "";

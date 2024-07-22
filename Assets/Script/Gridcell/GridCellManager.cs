@@ -54,7 +54,8 @@ public class GridCellManager : MonoBehaviour
 
     public GameObject GetPlacedObj(Vector3Int placedCell)
     {
-        return this.placedCell[placedCell];
+        if (this.placedCell.ContainsKey(placedCell)) return this.placedCell[placedCell];
+        return null;
     }
 
     public bool IsPlacedCell(Vector3Int placedCell)
